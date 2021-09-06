@@ -135,7 +135,8 @@ you just simply need to mention your html page inside redirect method mentioned 
 	user needs to send refersh token along with above Rest API for to make invalidate refresh token after successful logout.
 
 
-## Note: you can run this project locally by replacing dbURI(inside ./lib/configs/Config.js) along with your dbURI. this dbURI you get when you give database access to user in MongoDB cloud.
+## Note:
+you can run this project locally by replacing dbURI(inside ./lib/configs/Config.js) along with your dbURI. this dbURI you get when you give database access to user in MongoDB cloud.
 
 
 

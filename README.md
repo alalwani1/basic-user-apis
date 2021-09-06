@@ -1,9 +1,9 @@
 ## Basic user Authentication APIs with JWT
 This package provides Basic User authentication related Rest APIs. Example:
 
-##Types of Rest APIs covered:
+## Types of Rest APIs covered:
 
-##GET Requests: 
+# GET Requests: 
 1. Home Page(render html page if any)
 2. Signup Form(render html page if any)
 3. Login Form(render html page if any) 
@@ -11,32 +11,35 @@ This package provides Basic User authentication related Rest APIs. Example:
 5. get logout from webpage
 6. search other user by contact number.(for UI related part sorry, that is not included in this project as this small project was highly focused for to provide Rest API's only).
 
-##POST Requests: 
+# POST Requests: 
 1. Post Login Form Data 
 2. Post Signup Form Data 
 3. Generate access token with the help of refresh token after expires.
 
-#Authentication
+# Authentication
 Json web token(JWT) is used for secure authentication.
 
-#Database 
+# Database 
 MongoDB cloud
 
-#Project Deployment Platform
+# Project Deployment Platform
 Heroku(as i am very familiar with heroku)
 
-#User Model
+# User Model
 The Signup form stores data inside MongoDB 'User' collection through 'User' Schema(./lib/models/User.js). Connetion string with MongoDB is created with the help of moongose.
 
-#How to use Rest APIs
+# How to use Rest APIs
 you can use below three Rest APIs for to fetch UI pages:
-1. Home Page            Rest API: http://localhost:3000/api/v1.0/
-2. Signup form          Rest API: http://localhost:3000/api/v1.0/signup
-3. Login Form           Rest API: http://localhost:3000/api/v1.0/login
+# 1. Home Page            
+Rest API: http://localhost:3000/api/v1.0/
+# 2. Signup form          
+Rest API: http://localhost:3000/api/v1.0/signup
+# 3. Login Form           
+Rest API: http://localhost:3000/api/v1.0/login
 
 you just simply need to mention your html page inside redirect method mentioned inside above Rest APIs.
 
-4. Post Signup Form Data(needed for the first time activity of every user): In this API, you need to fill all the user related details inside body.
+# 4. Post Signup Form Data(needed for the first time activity of every user): In this API, you need to fill all the user related details inside body.
  	Rest APIs: http://localhost:5000/api/v1.0/auth/signup
 	json template:
 		{
@@ -55,7 +58,7 @@ you just simply need to mention your html page inside redirect method mentioned 
 		    "gender": "male"
 		}
 
-#What checks Mongoose User schema performs on above given json body for signup form data?
+# What checks Mongoose User schema performs on above given json body for signup form data?
 	
 	firstName: It is mandatory field with minimum length 2.
 	lastName: It is also mandatory field with minimum length 2.
@@ -66,17 +69,19 @@ you just simply need to mention your html page inside redirect method mentioned 
 	country; this field should have at least 3 characters.
 	zip: this field should have exact should contains 6 digit number.
 	gender: value should match from any one of these[male, female, other].
+	
+	other: same emailid is used in second signup?
 
 	Note: In each entry of user or in each signup, email id should be unique. you can change above provided checks according to your need.
 
-	o/p:
+	output:
 		{
 		    "ok": true,
 		    "user": "6135cd3c4e0077f00f7cad",
 		    "message": "User was registered successfully!"
 		}
 
-5. Post Login Form Data: This Rest API post login form data and authenticate user:
+# 5. Post Login Form Data: This Rest API post login form data and authenticate user:
 	Rest APIs: http://localhost:5000/api/v1.0/authenticate
 
 	json body:
@@ -96,16 +101,16 @@ you just simply need to mention your html page inside redirect method mentioned 
 
 	accessToken is created along with the refresh Token where access token has expiry time of 15 minutes and refreshToken has expiry time of 3 hr.
 
-#how user can do safe browsing(safe from hackers) with the help of jwt tokens? or how we can make our jwt safe?
+## how user can do safe browsing(safe from hackers) with the help of jwt tokens? or how we can make our jwt safe?
 	In the above output, access token and refresh token are received through login api and both are jwt tokens. In order to do safe browsing from hacker we need shorttime expiration technique for access token. Now user will make every next request along with access token. In between requesting data from server, if hacker hacks user's jwt(access token) then that access token will be expire in shorttime(15 min) and invalidate. Now it would be not that much easy for hacker to hack access token again and again in each 15 minutes.
 
-# now How user will be able to get new access token after expires of last access token? or Why do we need access token along with refresh token? 
+## now How user will be able to get new access token after expires of last access token? or Why do we need access token along with refresh token? 
 	once user's access token expires then user can make request to server with the below given Rest API:
-6.	Rest API:	http://localhost:5000/api/v1.0/auth/token  along with refresh token inside body.
+# 6.	Rest API:	http://localhost:5000/api/v1.0/auth/token  along with refresh token inside body.
 
 	As we know refresh token has expire time of 3 hr(can be more by making changes in config file) then from that refresh token, server will get to know about the user has valid refresh token or not. if user has valid refresh token then server will create new access token otherwise user has to again login for to get both access token and refresh token.
 
-7. Search other User either by firstname or lastname with access token in headers:
+# 7. Search other User either by firstname or lastname with access token in headers:
 
 	Rest API: http://localhost:3000/api/v1.0/searchUserByName?firstName=Naman&lastName=Sharma
 
@@ -115,7 +120,7 @@ you just simply need to mention your html page inside redirect method mentioned 
 		b) firstName: "" and lastName: sha from sharma
 		c) firstName: na from naman and lastName: sha from sharma
 
-8. Search other User contact number with access token in headers:
+# 8. Search other User contact number with access token in headers:
 	Rest API: http://localhost:3000/api/v1.0/searchUserByContact?contact=7123456890
 
 	here we need to provide contact number in params. We can also search contact number as partial values like:
@@ -123,12 +128,12 @@ you just simply need to mention your html page inside redirect method mentioned 
 		b) 71 from 7123456890
 
 
-9. get logout from webpage:
+# 9. get logout from webpage:
 	Rest API: http://localhost:3000/api/v1.0/logout
 	user needs to send refersh token along with above Rest API for to make invalidate refresh token after successful logout.
 
 
-#Note: you can run this project locally by replacing dbURI(inside ./lib/configs/Config.js) along with your dbURI. this dbURI you get when you give database access to user in MongoDB cloud.
+# Note: you can run this project locally by replacing dbURI(inside ./lib/configs/Config.js) along with your dbURI. this dbURI you get when you give database access to user in MongoDB cloud.
 
 
 
